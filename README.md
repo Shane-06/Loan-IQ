@@ -174,5 +174,5 @@ docker-compose up --build
 
 ---
 
-## 👥 Authors
-- **Govind** (Lead Developer & Machine Learning Engineer)
+## 👥 Author
+- **Govind** 
