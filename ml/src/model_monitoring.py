@@ -165,7 +165,9 @@ def run_feature_ablation(
     for name, imp, idx in feature_imp[:top_n]:
         # Ablate by replacing column with its mean
         X_ablated = X_test.copy()
-        X_ablated.iloc[:, idx] = X_ablated.iloc[:, idx].mean()
+        col_name = X_ablated.columns[idx]
+        X_ablated[col_name] = X_ablated[col_name].astype(float)
+        X_ablated[col_name] = X_ablated[col_name].mean()
 
         ablated_accuracy = accuracy_score(y_test, model.predict(X_ablated))
         drop = original_accuracy - ablated_accuracy

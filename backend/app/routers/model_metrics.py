@@ -65,13 +65,33 @@ async def get_model_health(admin_user: User = Depends(get_admin_user)):
     """Retrieve model monitoring warnings (overfitting, underfitting, feature dominance)."""
     health = ml_service.get_health_report()
     
+    # Handle mixed boolean/dictionary formats depending on whether real-time checks or fallback were run
+    ovf = health.get("overfitting", False)
+    overfitting_bool = ovf.get("is_overfitting", False) if isinstance(ovf, dict) else bool(ovf)
+    
+    udf = health.get("underfitting", False)
+    underfitting_bool = udf.get("is_underfitting", False) if isinstance(udf, dict) else bool(udf)
+    
+    fd = health.get("feature_dominance", False)
+    feature_dominance_bool = fd.get("is_dominant", False) if isinstance(fd, dict) else bool(fd)
+    
+    status_str = health.get("overall_status", health.get("status", "HEALTHY")).upper()
+    
+    metrics = health.get("metrics", {})
+    if not metrics:
+        metrics = {
+            "overfitting_details": ovf if isinstance(ovf, dict) else {},
+            "underfitting_details": udf if isinstance(udf, dict) else {},
+            "feature_dominance_details": fd if isinstance(fd, dict) else {},
+        }
+    
     return ModelHealthResponse(
-        status=health.get("status", "HEALTHY"),
-        overfitting=health.get("overfitting", False),
-        underfitting=health.get("underfitting", False),
-        feature_dominance=health.get("feature_dominance", False),
+        status=status_str,
+        overfitting=overfitting_bool,
+        underfitting=underfitting_bool,
+        feature_dominance=feature_dominance_bool,
         issues=health.get("issues", []),
-        metrics=health.get("metrics", {})
+        metrics=metrics
     )
 
 

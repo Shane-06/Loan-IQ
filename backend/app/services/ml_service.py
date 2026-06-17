@@ -41,10 +41,11 @@ class MLService:
             if os.path.exists(alternative_path):
                 model_path = alternative_path
             else:
-                raise FileNotFoundError(
-                    f"Model not found at config path '{settings.MODEL_PATH}' "
-                    f"or fallback path '{alternative_path}'."
+                print(
+                    f"Warning: Model not found at config path '{settings.MODEL_PATH}' "
+                    f"or fallback path '{alternative_path}'. Deferring load."
                 )
+                return
 
         try:
             artifact = joblib.load(model_path)
@@ -55,8 +56,7 @@ class MLService:
             self.model_type = artifact.get("model_type", "RandomForestClassifier")
             print(f"ML Model loaded successfully from {model_path}")
         except Exception as e:
-            print(f"Error loading model from {model_path}: {str(e)}")
-            raise e
+            print(f"Warning: Error loading model from {model_path}: {str(e)}. Deferring load.")
 
     def predict(self, raw_input: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -65,6 +65,8 @@ class MLService:
         """
         if self.model is None or self.feature_names is None:
             self.load_model()
+            if self.model is None or self.feature_names is None:
+                raise RuntimeError("ML model is not loaded. Please train the model first.")
 
         # 1. Convert to DataFrame
         df = pd.DataFrame([raw_input])
@@ -97,6 +99,8 @@ class MLService:
         """Get global feature importances for admin charts."""
         if self.model is None or self.feature_names is None:
             self.load_model()
+            if self.model is None or self.feature_names is None:
+                raise RuntimeError("ML model is not loaded. Please train the model first.")
         return get_global_feature_importance(self.model, self.feature_names)
 
     def load_latest_report(self) -> Dict[str, Any]:
@@ -126,6 +130,18 @@ class MLService:
 
         if self.model is None:
             self.load_model()
+            if self.model is None:
+                return {
+                    "status": "UNHEALTHY",
+                    "overfitting": False,
+                    "underfitting": False,
+                    "feature_dominance": False,
+                    "issues": ["ML model is not loaded. Please train the model first."],
+                    "metrics": {
+                        "cv_mean_accuracy": 0.0,
+                        "cv_std_accuracy": 0.0
+                    }
+                }
 
         # If we have a stored dataset or default parameters, we fetch health info.
         # For simplicity, we can reuse the training report metrics or run monitoring
@@ -141,7 +157,7 @@ class MLService:
             # Run health checks
             from src.model_training import split_data
             from src.model_evaluation import evaluate_model
-
+ 
             splits = split_data(df_feat)
             eval_metrics = evaluate_model(
                 self.model,
@@ -152,7 +168,7 @@ class MLService:
             
             X_full = pd.concat([splits["X_train"], splits["X_val"]], axis=0)
             y_full = pd.concat([splits["y_train"], splits["y_val"]], axis=0)
-
+ 
             # Run monitoring
             health = run_full_monitoring(
                 model=self.model,
@@ -173,8 +189,8 @@ class MLService:
                 "feature_dominance": False,
                 "issues": [f"Could not load evaluation dataset for real-time validation: {str(e)}"],
                 "metrics": {
-                    "cv_mean_accuracy": self.training_report.get("cv_mean_accuracy", 0.99),
-                    "cv_std_accuracy": self.training_report.get("cv_std_accuracy", 0.0)
+                    "cv_mean_accuracy": self.training_report.get("cv_mean_accuracy", 0.99) if self.training_report else 0.99,
+                    "cv_std_accuracy": self.training_report.get("cv_std_accuracy", 0.0) if self.training_report else 0.0
                 }
             }
 

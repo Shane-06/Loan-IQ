@@ -1,0 +1,39 @@
+{
+  "feature_names": [
+    "no_of_dependents",
+    "education",
+    "self_employed",
+    "income_annum",
+    "loan_amount",
+    "loan_term",
+    "cibil_score",
+    "residential_assets_value",
+    "commercial_assets_value",
+    "luxury_assets_value",
+    "bank_asset_value",
+    "previous_defaults",
+    "credit_utilization_ratio",
+    "monthly_emi",
+    "loan_income_ratio",
+    "total_assets",
+    "asset_to_loan_ratio",
+    "credit_strength",
+    "debt_risk_index",
+    "debt_to_income_ratio"
+  ],
+  "training_report": {
+    "best_params": {
+      "max_depth": null,
+      "max_features": "sqrt",
+      "min_samples_leaf": 1,
+      "min_samples_split": 2,
+      "n_estimators": 100
+    },
+    "cv_folds": 5,
+    "cv_mean_accuracy": 0.965183,
+    "cv_std_accuracy": 0.009136,
+    "cv_train_mean_accuracy": 0.999916,
+    "total_candidates_evaluated": 16
+  },
+  "timestamp": "20260617_163009"
+}
