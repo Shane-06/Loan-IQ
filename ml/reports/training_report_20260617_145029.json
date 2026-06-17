@@ -1,0 +1,663 @@
+{
+  "timestamp": "20260617_145029",
+  "data_cleaning": {
+    "original_shape": [
+      4269,
+      13
+    ],
+    "steps": [
+      {
+        "step": "strip_whitespace",
+        "status": "completed"
+      },
+      {
+        "step": "validate_datatypes",
+        "warnings": []
+      },
+      {
+        "step": "remove_duplicates",
+        "duplicates_removed": 0
+      },
+      {
+        "step": "validate_cibil_score",
+        "values_clipped": 0
+      },
+      {
+        "step": "handle_missing_values",
+        "columns_with_missing": {}
+      },
+      {
+        "step": "outlier_detection",
+        "iqr_outliers": {
+          "residential_assets_value": 52,
+          "commercial_assets_value": 37,
+          "bank_asset_value": 5
+        },
+        "zscore_outliers": {
+          "residential_assets_value": 16,
+          "commercial_assets_value": 17
+        }
+      }
+    ],
+    "final_shape": [
+      4269,
+      13
+    ]
+  },
+  "feature_engineering": {
+    "original_columns": [
+      "loan_id",
+      "no_of_dependents",
+      "education",
+      "self_employed",
+      "income_annum",
+      "loan_amount",
+      "loan_term",
+      "cibil_score",
+      "residential_assets_value",
+      "commercial_assets_value",
+      "luxury_assets_value",
+      "bank_asset_value",
+      "loan_status"
+    ],
+    "features_created": [
+      "education (encoded)",
+      "self_employed (encoded)",
+      "loan_status (encoded)",
+      "loan_income_ratio",
+      "total_assets",
+      "asset_to_loan_ratio",
+      "credit_strength",
+      "debt_risk_index"
+    ],
+    "dropped_columns": [
+      "loan_id"
+    ],
+    "final_columns": [
+      "no_of_dependents",
+      "education",
+      "self_employed",
+      "income_annum",
+      "loan_amount",
+      "loan_term",
+      "cibil_score",
+      "residential_assets_value",
+      "commercial_assets_value",
+      "luxury_assets_value",
+      "bank_asset_value",
+      "loan_status",
+      "loan_income_ratio",
+      "total_assets",
+      "asset_to_loan_ratio",
+      "credit_strength",
+      "debt_risk_index"
+    ],
+    "final_shape": [
+      4269,
+      17
+    ]
+  },
+  "training": {
+    "best_params": {
+      "max_depth": null,
+      "max_features": "sqrt",
+      "min_samples_leaf": 1,
+      "min_samples_split": 5,
+      "n_estimators": 100
+    },
+    "cv_folds": 5,
+    "cv_mean_accuracy": 0.99933,
+    "cv_std_accuracy": 0.000821,
+    "cv_train_mean_accuracy": 1.0,
+    "total_candidates_evaluated": 16
+  },
+  "evaluation": {
+    "train": {
+      "split": "train",
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "roc_auc": 1.0,
+      "sample_count": 2987
+    },
+    "validation": {
+      "split": "validation",
+      "accuracy": 0.99844,
+      "precision": 0.9975,
+      "recall": 1.0,
+      "f1_score": 0.998748,
+      "roc_auc": 0.99999,
+      "sample_count": 641
+    },
+    "test": {
+      "split": "test",
+      "accuracy": 0.99844,
+      "precision": 1.0,
+      "recall": 0.997494,
+      "f1_score": 0.998745,
+      "roc_auc": 0.99999,
+      "sample_count": 641
+    },
+    "cross_validation": {
+      "cv_folds": 5,
+      "cv_scores": [
+        0.998623,
+        1.0,
+        1.0,
+        0.997241,
+        0.997241
+      ],
+      "cv_mean": 0.998621,
+      "cv_std": 0.001234,
+      "cv_variance": 1.52e-06
+    },
+    "confusion_matrix": {
+      "matrix": [
+        [
+          242,
+          0
+        ],
+        [
+          1,
+          398
+        ]
+      ],
+      "true_negatives": 242,
+      "false_positives": 0,
+      "false_negatives": 1,
+      "true_positives": 398
+    },
+    "roc_curve": {
+      "fpr": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0041,
+        0.0041,
+        0.0744,
+        0.0826,
+        0.1033,
+        0.1116,
+        0.1777,
+        0.186,
+        0.2397,
+        0.2521,
+        0.2645,
+        0.2851,
+        0.3223,
+        0.4545,
+        0.4587,
+        0.4752,
+        0.4835,
+        0.4917,
+        0.5,
+        0.5207,
+        0.5372,
+        0.5537,
+        0.562,
+        1.0
+      ],
+      "tpr": [
+        0.0,
+        0.7544,
+        0.7569,
+        0.7719,
+        0.7744,
+        0.7794,
+        0.782,
+        0.7895,
+        0.8045,
+        0.8095,
+        0.812,
+        0.8221,
+        0.8271,
+        0.8371,
+        0.8446,
+        0.8471,
+        0.8972,
+        0.9023,
+        0.9098,
+        0.9398,
+        0.9975,
+        0.9975,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "thresholds": [
+        Infinity,
+        1.0,
+        0.9983,
+        0.998,
+        0.9975,
+        0.9967,
+        0.9967,
+        0.996,
+        0.995,
+        0.994,
+        0.994,
+        0.9933,
+        0.9925,
+        0.992,
+        0.9917,
+        0.9907,
+        0.99,
+        0.9875,
+        0.9824,
+        0.98,
+        0.6781,
+        0.4868,
+        0.4814,
+        0.0512,
+        0.0508,
+        0.0435,
+        0.04,
+        0.0225,
+        0.0223,
+        0.02,
+        0.0186,
+        0.0171,
+        0.0167,
+        0.0108,
+        0.01,
+        0.008,
+        0.0067,
+        0.0053,
+        0.005,
+        0.0038,
+        0.0033,
+        0.0025,
+        0.0014,
+        0.0009,
+        0.0
+      ]
+    },
+    "classification_report": {
+      "0": {
+        "precision": 0.9958847736625515,
+        "recall": 1.0,
+        "f1-score": 0.9979381443298969,
+        "support": 242.0
+      },
+      "1": {
+        "precision": 1.0,
+        "recall": 0.9974937343358395,
+        "f1-score": 0.998745294855709,
+        "support": 399.0
+      },
+      "accuracy": 0.9984399375975039,
+      "macro avg": {
+        "precision": 0.9979423868312758,
+        "recall": 0.9987468671679198,
+        "f1-score": 0.9983417195928029,
+        "support": 641.0
+      },
+      "weighted avg": {
+        "precision": 0.9984463576073908,
+        "recall": 0.9984399375975039,
+        "f1-score": 0.9984405672000981,
+        "support": 641.0
+      }
+    }
+  },
+  "monitoring": {
+    "overfitting": {
+      "is_overfitting": false,
+      "train_accuracy": 1.0,
+      "validation_accuracy": 0.99844,
+      "gap": 0.00156,
+      "threshold": 0.05,
+      "severity": "none",
+      "recommendation": "No overfitting detected."
+    },
+    "underfitting": {
+      "is_underfitting": false,
+      "train_accuracy": 1.0,
+      "validation_accuracy": 0.99844,
+      "min_threshold": 0.85,
+      "recommendation": "No underfitting detected."
+    },
+    "feature_dominance": {
+      "is_dominant": "False",
+      "dominant_feature": null,
+      "dominant_importance": 0.421278,
+      "dominance_threshold": 0.7,
+      "top_features": [
+        {
+          "feature": "cibil_score",
+          "importance": 0.421278
+        },
+        {
+          "feature": "credit_strength",
+          "importance": 0.414037
+        },
+        {
+          "feature": "loan_term",
+          "importance": 0.083676
+        }
+      ],
+      "all_features": [
+        {
+          "feature": "cibil_score",
+          "importance": 0.421278
+        },
+        {
+          "feature": "credit_strength",
+          "importance": 0.414037
+        },
+        {
+          "feature": "loan_term",
+          "importance": 0.083676
+        },
+        {
+          "feature": "loan_income_ratio",
+          "importance": 0.032378
+        },
+        {
+          "feature": "debt_risk_index",
+          "importance": 0.015845
+        },
+        {
+          "feature": "asset_to_loan_ratio",
+          "importance": 0.010866
+        },
+        {
+          "feature": "loan_amount",
+          "importance": 0.003824
+        },
+        {
+          "feature": "total_assets",
+          "importance": 0.003426
+        },
+        {
+          "feature": "commercial_assets_value",
+          "importance": 0.002965
+        },
+        {
+          "feature": "luxury_assets_value",
+          "importance": 0.002744
+        },
+        {
+          "feature": "residential_assets_value",
+          "importance": 0.002736
+        },
+        {
+          "feature": "income_annum",
+          "importance": 0.002414
+        },
+        {
+          "feature": "bank_asset_value",
+          "importance": 0.002403
+        },
+        {
+          "feature": "no_of_dependents",
+          "importance": 0.00106
+        },
+        {
+          "feature": "education",
+          "importance": 0.000226
+        },
+        {
+          "feature": "self_employed",
+          "importance": 0.000122
+        }
+      ],
+      "warning": "No feature dominance detected."
+    },
+    "feature_ablation": [
+      {
+        "feature": "cibil_score",
+        "importance": 0.421278,
+        "original_accuracy": 0.99844,
+        "ablated_accuracy": 0.75507,
+        "accuracy_drop": 0.24337
+      },
+      {
+        "feature": "credit_strength",
+        "importance": 0.414037,
+        "original_accuracy": 0.99844,
+        "ablated_accuracy": 0.817473,
+        "accuracy_drop": 0.180967
+      },
+      {
+        "feature": "loan_term",
+        "importance": 0.083676,
+        "original_accuracy": 0.99844,
+        "ablated_accuracy": 0.965679,
+        "accuracy_drop": 0.032761
+      },
+      {
+        "feature": "loan_income_ratio",
+        "importance": 0.032378,
+        "original_accuracy": 0.99844,
+        "ablated_accuracy": 0.967239,
+        "accuracy_drop": 0.031201
+      },
+      {
+        "feature": "debt_risk_index",
+        "importance": 0.015845,
+        "original_accuracy": 0.99844,
+        "ablated_accuracy": 0.99532,
+        "accuracy_drop": 0.00312
+      }
+    ],
+    "learning_curve": {
+      "train_sizes": [
+        290,
+        580,
+        870,
+        1160,
+        1451,
+        1741,
+        2031,
+        2321,
+        2611,
+        2902
+      ],
+      "train_scores_mean": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "train_scores_std": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "val_scores_mean": [
+        0.967473,
+        0.990905,
+        0.993385,
+        0.99559,
+        0.996417,
+        0.99807,
+        0.997795,
+        0.997795,
+        0.998621,
+        0.998621
+      ],
+      "val_scores_std": [
+        0.008071,
+        0.004658,
+        0.003068,
+        0.002025,
+        0.002062,
+        0.001102,
+        0.001103,
+        0.001103,
+        0.001234,
+        0.001234
+      ]
+    },
+    "overall_status": "healthy",
+    "issues": []
+  },
+  "feature_importance": [
+    {
+      "feature": "cibil_score",
+      "importance": 0.421278,
+      "importance_pct": 42.13,
+      "std": 0.370195,
+      "rank": 1
+    },
+    {
+      "feature": "credit_strength",
+      "importance": 0.414037,
+      "importance_pct": 41.4,
+      "std": 0.371569,
+      "rank": 2
+    },
+    {
+      "feature": "loan_term",
+      "importance": 0.083676,
+      "importance_pct": 8.37,
+      "std": 0.037801,
+      "rank": 3
+    },
+    {
+      "feature": "loan_income_ratio",
+      "importance": 0.032378,
+      "importance_pct": 3.24,
+      "std": 0.02062,
+      "rank": 4
+    },
+    {
+      "feature": "debt_risk_index",
+      "importance": 0.015845,
+      "importance_pct": 1.58,
+      "std": 0.013317,
+      "rank": 5
+    },
+    {
+      "feature": "asset_to_loan_ratio",
+      "importance": 0.010866,
+      "importance_pct": 1.09,
+      "std": 0.012364,
+      "rank": 6
+    },
+    {
+      "feature": "loan_amount",
+      "importance": 0.003824,
+      "importance_pct": 0.38,
+      "std": 0.004521,
+      "rank": 7
+    },
+    {
+      "feature": "total_assets",
+      "importance": 0.003426,
+      "importance_pct": 0.34,
+      "std": 0.003822,
+      "rank": 8
+    },
+    {
+      "feature": "commercial_assets_value",
+      "importance": 0.002965,
+      "importance_pct": 0.3,
+      "std": 0.003161,
+      "rank": 9
+    },
+    {
+      "feature": "luxury_assets_value",
+      "importance": 0.002744,
+      "importance_pct": 0.27,
+      "std": 0.003255,
+      "rank": 10
+    },
+    {
+      "feature": "residential_assets_value",
+      "importance": 0.002736,
+      "importance_pct": 0.27,
+      "std": 0.00317,
+      "rank": 11
+    },
+    {
+      "feature": "income_annum",
+      "importance": 0.002414,
+      "importance_pct": 0.24,
+      "std": 0.002872,
+      "rank": 12
+    },
+    {
+      "feature": "bank_asset_value",
+      "importance": 0.002403,
+      "importance_pct": 0.24,
+      "std": 0.003756,
+      "rank": 13
+    },
+    {
+      "feature": "no_of_dependents",
+      "importance": 0.00106,
+      "importance_pct": 0.11,
+      "std": 0.001863,
+      "rank": 14
+    },
+    {
+      "feature": "education",
+      "importance": 0.000226,
+      "importance_pct": 0.02,
+      "std": 0.000675,
+      "rank": 15
+    },
+    {
+      "feature": "self_employed",
+      "importance": 0.000122,
+      "importance_pct": 0.01,
+      "std": 0.000478,
+      "rank": 16
+    }
+  ],
+  "model_path": "D:\\Sem-4\\Project-AI\\HDFC_Bank_Problem\\ml\\models\\rf_model_20260617_145029.pkl"
+}

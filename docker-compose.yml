@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: hdfc_postgres_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword123!
+      POSTGRES_DB: hdfc_loan
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d hdfc_loan"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: hdfc_fastapi_backend
+    ports:
+      - "8000:8000"
+    environment:
+      # Links to the 'db' container using asyncpg
+      DATABASE_URL: postgresql+asyncpg://postgres:postgrespassword123!@db:5432/hdfc_loan
+      SECRET_KEY: 9a7c36f56c75abf105e49b81b8de0c1e0bc6e2ef300ffbb9c7198d022b72df48
+      ALGORITHM: HS256
+      ACCESS_TOKEN_EXPIRE_MINUTES: 60
+      CORS_ORIGINS: '["http://localhost", "http://127.0.0.1", "http://localhost:80"]'
+      MODEL_PATH: ../ml/models/rf_model_latest.pkl
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: always
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: hdfc_react_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: always
+
+volumes:
+  pgdata:
+    driver: local

@@ -1,3 +1,54 @@
+# Virtual Environments
 .venv/
+venv/
+ENV/
+env/
+
+# Python Cache & Compilation
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Notebooks
 .ipynb_checkpoints/
+
+# Node Dependencies
+node_modules/
+/frontend/node_modules/
+
+# Local Environment Configurations
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+
+# Builds and Static Assets
+dist/
+/frontend/dist/
+build/
+/frontend/build/
+.next/
+.out/
+
+# IDE / Editor Settings
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+.DS_Store
+Thumbs.db
+
+# SQLite Databases (Dev only)
+*.db
+*.db-journal
+*.sqlite
+/backend/hdfc_loan.db

@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: hdfc-loan-ai-backend
+    env: python
+    buildCommand: "pip install -r backend/requirements.txt"
+    startCommand: "cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    plan: free
+    envVars:
+      - key: DATABASE_URL
+        sync: false # Connect to Supabase or Render database
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALGORITHM
+        value: "HS256"
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: "60"
+      - key: MODEL_PATH
+        value: "../ml/models/rf_model_latest.pkl"
+      - key: CORS_ORIGINS
+        value: '["*"]' # In production, restrict this to your frontend URL

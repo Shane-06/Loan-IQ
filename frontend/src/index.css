@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans bg-hdfc-gray-50 text-hdfc-gray-900 transition-colors duration-300;
+  }
+  
+  body.dark {
+    @apply bg-hdfc-gray-950 text-slate-100;
+  }
+}
+
+/* Glassmorphism utility classes */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dark .glass-panel {
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
+}
+
+.dark .glass-card {
+  background: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Hide default scrollbars & style custom ones */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-hdfc-gray-300/60 rounded-full transition-colors;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  @apply bg-slate-700/60;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-hdfc-gray-300;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-600;
+}
+
+/* Custom animated gradient backgrounds */
+.bg-gradient-mesh {
+  background-color: #f9fafb;
+  background-image: 
+    radial-gradient(at 10% 20%, rgba(139, 92, 246, 0.05) 0px, transparent 55%),
+    radial-gradient(at 90% 10%, rgba(244, 63, 94, 0.03) 0px, transparent 50%),
+    radial-gradient(at 50% 80%, rgba(196, 181, 253, 0.04) 0px, transparent 55%);
+}
+
+.dark .bg-gradient-mesh {
+  background-color: #030712;
+  background-image: 
+    radial-gradient(at 10% 20%, rgba(139, 92, 246, 0.12) 0px, transparent 50%),
+    radial-gradient(at 90% 10%, rgba(244, 63, 94, 0.06) 0px, transparent 50%),
+    radial-gradient(at 50% 80%, rgba(196, 181, 253, 0.08) 0px, transparent 50%);
+}
