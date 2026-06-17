@@ -1,4 +1,4 @@
-# HDFC Bank AI-Powered Loan Underwriting & Decision System
+# 🏦 Loan-IQ: HDFC Bank AI-Powered Loan Underwriting & Decision System
 
 A production-ready, full-stack AI platform designed to automate and optimize the loan approval process for HDFC Bank Ltd. The system leverages a **Random Forest Classifier** with GridSearchCV hyperparameter tuning, features an explainable AI (XAI) mapping engine, and aggregates real-time asset distributions on a dashboard.
 
@@ -21,8 +21,17 @@ graph TD
 
 1. **Frontend**: React + Vite SPA styled with Tailwind CSS, Lucide icons, and Recharts analytics.
 2. **Backend**: FastAPI with async route handlers, HTTP Bearer JWT authentication, and ML service layers.
-3. **Database**: PostgreSQL (accessible via Supabase or local Docker) managed via SQLAlchemy (async) and Alembic migrations.
-4. **Machine Learning**: Scikit-Learn Random Forest Classifier + GridSearchCV cross-validation, featuring automated overfitting/underfitting checks and ablation monitoring.
+3. **Database**: PostgreSQL (accessible via Supabase or local Docker) managed via SQLAlchemy (async) and Alembic migrations. If no PostgreSQL database is provided, the backend falls back automatically to a local SQLite database (`hdfc_loan.db`) using `aiosqlite`.
+4. **Machine Learning**: Scikit-Learn Random Forest Classifier + GridSearchCV cross-validation, featuring automated overfitting/underfitting checks, feature dominance alarms, and feature ablation monitoring.
+
+---
+
+## 🌟 Key Features & Engineering Highlights
+
+* **Explainable AI (XAI)**: Generates human-readable local explanation weights (feature contributions) for every single prediction, detailing exactly why the model chose to approve or reject a loan application.
+* **Real-time Model Health Monitoring**: Incorporates diagnostics checking for overfitting, underfitting, feature dominance, and run-time feature ablation checks.
+* **Robust Cryptographic Architecture**: Implements direct, high-performance `bcrypt` password hashing compatible with Python 3.12+ (replacing outdated `passlib` contexts).
+* **Decoupled Architecture**: Dektop-first React interface connected to an asynchronous FastAPI backend via JWT Bearer authentication.
 
 ---
 
@@ -67,9 +76,9 @@ HDFC_Bank_Problem/
 ## 🚀 Getting Started (Local Development)
 
 ### 1. Pre-requisites
-- **Python**: Version `3.13`
-- **Node.js**: Version `24.x`
-- **PostgreSQL**: (Optional fallback uses SQLite automatically if no URL is provided)
+- **Python**: Version `3.12` or `3.13`
+- **Node.js**: Version `24.x` or similar LTS
+- **PostgreSQL**: (Optional fallback uses SQLite automatically if no database URL is provided)
 
 ---
 
@@ -104,10 +113,11 @@ python ml/train.py --fast
    ```bash
    cp .env.example .env
    ```
-3. Run Alembic database migrations:
+3. Run Alembic database migrations (if using PostgreSQL):
    ```bash
    alembic upgrade head
    ```
+   *(Note: If utilizing the SQLite fallback, the database tables will initialize automatically on application startup).*
 4. Start the FastAPI development server:
    ```bash
    python -m uvicorn app.main:app --reload
