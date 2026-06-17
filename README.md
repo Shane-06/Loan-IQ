@@ -1,6 +1,6 @@
-# 🏦 Loan-IQ: HDFC Bank AI-Powered Loan Underwriting & Decision System
+# 🏦 Loan-IQ: AI-Powered Loan Underwriting & Decision System
 
-A production-ready, full-stack AI platform designed to automate and optimize the loan approval process for HDFC Bank Ltd. The system leverages a **Random Forest Classifier** with GridSearchCV hyperparameter tuning, features an explainable AI (XAI) mapping engine, and aggregates real-time asset distributions on a dashboard.
+A production-ready, full-stack AI platform designed to automate and optimize the loan approval process. The system leverages a **Random Forest Classifier** with GridSearchCV hyperparameter tuning, features an explainable AI (XAI) mapping engine, and aggregates real-time asset distributions on a dashboard.
 
 ---
 
@@ -21,7 +21,7 @@ graph TD
 
 1. **Frontend**: React + Vite SPA styled with Tailwind CSS, Lucide icons, and Recharts analytics.
 2. **Backend**: FastAPI with async route handlers, HTTP Bearer JWT authentication, and ML service layers.
-3. **Database**: PostgreSQL (accessible via Supabase or local Docker) managed via SQLAlchemy (async) and Alembic migrations. If no PostgreSQL database is provided, the backend falls back automatically to a local SQLite database (`hdfc_loan.db`) using `aiosqlite`.
+3. **Database**: PostgreSQL (accessible via Supabase or local Docker) managed via SQLAlchemy (async) and Alembic migrations. If no PostgreSQL database is provided, the backend falls back automatically to a local SQLite database (`loan_iq.db`) using `aiosqlite`.
 4. **Machine Learning**: Scikit-Learn Random Forest Classifier + GridSearchCV cross-validation, featuring automated overfitting/underfitting checks, feature dominance alarms, and feature ablation monitoring.
 
 ---
@@ -31,14 +31,14 @@ graph TD
 * **Explainable AI (XAI)**: Generates human-readable local explanation weights (feature contributions) for every single prediction, detailing exactly why the model chose to approve or reject a loan application.
 * **Real-time Model Health Monitoring**: Incorporates diagnostics checking for overfitting, underfitting, feature dominance, and run-time feature ablation checks.
 * **Robust Cryptographic Architecture**: Implements direct, high-performance `bcrypt` password hashing compatible with Python 3.12+ (replacing outdated `passlib` contexts).
-* **Decoupled Architecture**: Dektop-first React interface connected to an asynchronous FastAPI backend via JWT Bearer authentication.
+* **Decoupled Architecture**: Desktop-first React interface connected to an asynchronous FastAPI backend via JWT Bearer authentication.
 
 ---
 
 ## 🗂️ Project Repository Layout
 
 ```
-HDFC_Bank_Problem/
+Loan-IQ/
 ├── backend/                    # FastAPI Application
 │   ├── alembic/                # SQL Schema Migrations
 │   ├── app/
@@ -171,3 +171,8 @@ docker-compose up --build
 | **GET** | `/api/analytics` | Return dashboard aggregated charts | **Yes** |
 | **GET** | `/api/model-metrics` | Return active model accuracy metrics | **Yes (Admin)** |
 | **GET** | `/api/model-metrics/health` | Return monitoring and fitting checks | **Yes (Admin)** |
+
+---
+
+## 👥 Authors
+- **Govind** (Lead Developer & Machine Learning Engineer)
